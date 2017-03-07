@@ -1,0 +1,47 @@
+{
+  "name": "flextype",
+  "version": "1.0.0",
+  "description": "Scale text against its container width using CSS.",
+  "author": {
+    "name": "Nick Bosman"
+  },
+  "main": "dist/flextype.js",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "flextype",
+    "responsive"
+  ],
+  "scripts": {
+    "build": "gulp",
+    "lint": "eslint \"./*.js\" \"src/**/*.js\" \"test/**/*.js\"",
+    "test:cover": "karma start --single-run --reporters mocha,coverage --browsers Chrome,Firefox,Safari",
+    "test:dev": "karma start",
+    "test": "npm run lint && npm run test:cover"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.2.0",
+    "del": "^2.2.2",
+    "eslint": "^3.17.0",
+    "eslint-config-airbnb-base": "^11.1.1",
+    "eslint-plugin-import": "^2.2.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-insert": "^0.5.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^2.0.0",
+    "gulp-umd": "^0.2.0",
+    "jasmine-core": "^2.5.2",
+    "karma": "^1.3.0",
+    "karma-babel-preprocessor": "^6.0.1",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-coverage": "^1.1.1",
+    "karma-firefox-launcher": "^1.0.0",
+    "karma-jasmine": "^1.1.0",
+    "karma-mocha-reporter": "^2.2.1",
+    "karma-phantomjs-launcher": "^1.0.2",
+    "karma-safari-launcher": "^1.0.0"
+  }
+}

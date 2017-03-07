@@ -1,0 +1,10 @@
+{
+  "extends": "airbnb-base",
+  "env": {
+    "browser": false,
+    "node": true
+  },
+  "rules": {
+    "max-len": ["error", 80]
+  }
+}
