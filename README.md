@@ -90,6 +90,8 @@ The +/- modifiers will prevent the font size from scaling until the next/previou
 }
 ```
 
+You can use [the flextype PostCSS plugin](https://github.com/autopaideia/postcss-flextype) to convert your `--flextype` declarations into this format for you.
+
 <a name="initialization-caveat"></a>
 ### 2. Trigger flextype manually after javascript manipulations
 
