@@ -1,5 +1,11 @@
 # flextype
 
+[![Build Status](https://img.shields.io/travis/autopaideia/flextype.svg)](https://travis-ci.org/autopaideia/flextype)
+
+[![Build Status](https://saucelabs.com/buildstatus/autopaideia?saucy)](https://saucelabs.com/beta/builds/88c42e744a9241999efb1a98ebfd440d)
+
+[![Build Status](https://saucelabs.com/browser-matrix/autopaideia.svg)](https://saucelabs.com/beta/builds/88c42e744a9241999efb1a98ebfd440d)
+
 Scale the font size of an element in proportion to its width... *in style*. 😎
 
 See the demo at <https://autopaideia.github.io/flextype/>.
