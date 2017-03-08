@@ -2,6 +2,8 @@
 
 Scale the font size of an element in proportion to its width... *in style*. 😎
 
+See the demo at <https://autopaideia.github.io/flextype/>.
+
 ## Features
 
 * Simple syntax for scaling at different amounts for different widths
@@ -79,6 +81,7 @@ The +/- modifiers will prevent the font size from scaling until the next/previou
 ## Caveats
 
 <a name="css-vars-caveat"></a>
+
 ### 1. CSS variables support
 
 **CSS variables are [not currently supported by either IE or Edge](http://caniuse.com/#feat=css-variables)** and are relatively recent additions to the other major browsers. To get around this flextype also accepts rules embedded in the `::before` pseudo element's content property.
@@ -93,6 +96,7 @@ The +/- modifiers will prevent the font size from scaling until the next/previou
 You can use [the flextype PostCSS plugin](https://github.com/autopaideia/postcss-flextype) to convert your `--flextype` declarations into this format for you.
 
 <a name="initialization-caveat"></a>
+
 ### 2. Trigger flextype manually after javascript manipulations
 
 The font size of any `.js-flextype` elements will be scaled immediately when flextype.js is loaded and then again whenever the window is resized. However, should you need to insert a new `.js-flextype` element into the DOM after flextype has already initialized or should some script cause your elements ever resize outside of the window resize event, you need to manually trigger the resize. You can do this with:
