@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "Scale text against its container width using CSS.",
   "author": {
-    "name": "Nick Bosman"
+    "name": "Nick Bosman",
+    "email": "autopaideia@gmail.com"
   },
+  "repository": "autopaideia/flextype",
+  "bugs": "https://github.com/autopaideia/flextype/issues",
   "main": "dist/flextype.js",
   "license": "MIT",
   "files": [
