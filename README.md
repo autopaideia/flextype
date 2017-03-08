@@ -11,7 +11,7 @@ See the demo at <https://autopaideia.github.io/flextype/>.
   * easily override within media queries
   * combine with whatever CSS-preprocessor variables you might be using
 * No dependencies
-* Supports all modern browsers and IE9+
+* Supports all modern browsers and IE9+<sup>[[see caveat for IE/Edge]](#css-vars-caveat)</sup>
 
 ## Usage
 
@@ -29,7 +29,7 @@ See the demo at <https://autopaideia.github.io/flextype/>.
     <div class="MyElement js-flextype">Hello</div>
     ```
 
-3. In CSS set the percentage of the `.js-flextype` element's width you want the font size to be on the CSS variable `--flextype`<sup>[[see caveat]](#css-vars-caveat)</sup>. For instance, if you want the font size to be `18px` when the element is `500px` wide and to scale up and down from there at a 1:1 ratio, you would use the percentage `3.6%`.
+3. In CSS set the percentage of the `.js-flextype` element's width you want the font size to be on the CSS variable `--flextype`. For instance, if you want the font size to be `18px` when the element is `500px` wide and to scale up and down from there at a 1:1 ratio, you would use the percentage `3.6%`.
 
     ```css
     .MyElement {
