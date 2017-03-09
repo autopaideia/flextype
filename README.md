@@ -1,8 +1,6 @@
 # flextype
 
-[![Build Status](https://img.shields.io/travis/autopaideia/flextype.svg)](https://travis-ci.org/autopaideia/flextype)
-
-[![Build Status](https://saucelabs.com/buildstatus/autopaideia?saucy)](https://saucelabs.com/beta/builds/88c42e744a9241999efb1a98ebfd440d)
+[![Build Status](https://img.shields.io/travis/autopaideia/flextype.svg)](https://travis-ci.org/autopaideia/flextype) [![Coverage Status](https://coveralls.io/repos/github/autopaideia/flextype/badge.svg?branch=master)](https://coveralls.io/github/autopaideia/flextype?branch=master) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 [![Build Status](https://saucelabs.com/browser-matrix/autopaideia.svg)](https://saucelabs.com/beta/builds/88c42e744a9241999efb1a98ebfd440d)
 
@@ -19,9 +17,7 @@ See the demo at <https://autopaideia.github.io/flextype/>.
 * No dependencies
 * Supports all modern browsers and IE9+<sup>[[see caveat for IE/Edge]](#css-vars-caveat)</sup>
 
-## Usage
-
-### Basic usage
+## Basic usage
 
 1. Add flextype.js to the bottom of your page.
 
@@ -46,7 +42,7 @@ See the demo at <https://autopaideia.github.io/flextype/>.
     }
     ```
 
-### Advanced usage
+## Advanced usage
 
 The ratio passed to flextype can also be expressed as a key-value pair written in JSON, where the key is an element width (in pixels) and the value is the desired corresponding font size (in pixels).
 
@@ -59,7 +55,7 @@ The ratio passed to flextype can also be expressed as a key-value pair written i
 
 This syntax gives you access to two additional features: "Tweening" and "Locking".
 
-#### Tweening
+### Tweening
 
 The font size can be made to scale at different ratios for different width-ranges, flextype will adjust the font size depending on which rules the element's width currently fall between.
 
@@ -71,7 +67,7 @@ The font size can be made to scale at different ratios for different width-range
 
 Given those rules we can expect that, for example, when `250px` wide `.MyElement` will have a font size of `9px` and when `750px` wide `.MyElement` will have a font size of `20px`.
 
-#### Locking
+### Locking
 
 You can lock the font size in for particular width-ranges by using `+` and `-` modifiers on the width keys.
 
