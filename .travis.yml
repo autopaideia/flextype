@@ -15,7 +15,9 @@ before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 script:
+  - npm run lint
   - karma start karma.conf-ci.js
+  - npm run codecov
 env:
   global:
     - secure: "J0n8emmbolaH30qGXXE2pxmWQWE90to0x8f3lKmJ6es9E2zpg3BqDe7bziAxRvH8r5MePYrgL2OFQklmNq+NTm60tbTVEmjhaQt5D+MLIwVRyVaMrkj52k5ag/8gcBbXiOqFPAzyFSxUITqVfsz277+cKn/PxVaLb4paUlQgWoT2ZaTnnbsv9w8ytId0pbXXnU54V6InNMsSXzEgrX7pt/NeBT+MfmwmZfap+cwC//Zgl1pF/Z3YLyKw0Qog21qfZ+s5FGKiRQ4GP8X46p/C9yd7RjWCzlNKwKxDgLCWM8rKdI7jUsu2VPZXE5WYkzN0AVx+EncidGJNnZqIGHr4Yn0HaUK9l2GGOcLfVs4FSY8hHjEeIyzyssm8cpggdfYZvSh+tklhG64H6qZ7mNAORD6Mw32GNpdx0xPpjnSOC4CFWE2iobiQsEZt93r9n/FN1TLCFun6rLHcxe3VZOOCXz2DJ/ghhLYwUUvV71ngyPgQx7gv2jSdA9E7MUrpbhGMrTZYR+LAJWwhO50S4LWouokA5bTEEzFfaX0VE0DCFHqpzXRX8KgyI1k5cGS4gucSjvcL8R4YWpMacoJyeS5IYFhoKTGX/Mut70irZeFTrJVJU5OVM+V1xUvfaHTAMo2aMiL6cRug6FFbX+9VZcKqcszunxCh8IENcUSMH7jokLo="

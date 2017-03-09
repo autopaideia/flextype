@@ -1,44 +1,61 @@
 # flextype
 
-[![Build Status](https://img.shields.io/travis/autopaideia/flextype.svg)](https://travis-ci.org/autopaideia/flextype) [![Coverage Status](https://coveralls.io/repos/github/autopaideia/flextype/badge.svg?branch=master)](https://coveralls.io/github/autopaideia/flextype?branch=master) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://img.shields.io/travis/autopaideia/flextype.svg)](https://travis-ci.org/autopaideia/flextype) [![Codecov](https://img.shields.io/codecov/c/github/autopaideia/flextype.svg)](https://codecov.io/github/autopaideia/flextype?branch=master) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 [![Build Status](https://saucelabs.com/browser-matrix/autopaideia.svg)](https://saucelabs.com/beta/builds/88c42e744a9241999efb1a98ebfd440d)
 
 Scale the font size of an element in proportion to its width... *in style*. 😎
 
-See the demo at <https://autopaideia.github.io/flextype/>.
+[Demo here](https://autopaideia.github.io/flextype/).
 
 ## Features
 
 * Simple syntax for scaling at different amounts for different widths
-* Keeps your scaling logic in CSS, thereby allowing you to:
+* Define your scaling logic in CSS, allowing you to:
   * easily override within media queries
-  * combine with whatever CSS-preprocessor variables you might be using
+  * leverage whatever CSS-preprocessor variables you might be using for your site's layout and typography
 * No dependencies
-* Supports all modern browsers and IE9+<sup>[[see caveat for IE/Edge]](#css-vars-caveat)</sup>
+* Supports all modern browsers and IE9+<sup>[[see caveat for IE/Edge]](#css-custom-props-caveat)</sup>
+
+## Install
+
+### NPM
+
+```bash
+npm install flextype --save
+```
+
+### Download
+
+* [Minified](https://unpkg.com/flextype/dist/flextype.min.js)
+* [Un-minified](https://unpkg.com/flextype/dist/flextype.js)
+
+### CDN
+
+```html
+<!-- Minified: -->
+<script src="https://unpkg.com/flextype/dist/flextype.min.js"></script>
+
+<!-- Un-minified: -->
+<script src="https://unpkg.com/flextype/dist/flextype.js"></script>
+```
 
 ## Basic usage
 
-1. Add flextype.js to the bottom of your page.
-
-    ```html
-    <script src="path/to/flextype.min.js"></script>
-    ```
-
-2. Add the class `js-flextype` to the element(s) you want to scale.
+1. Add the class `js-flextype` to the element(s) you want to scale.
 
     ```html
     <div class="MyElement js-flextype">Hello</div>
     ```
 
-3. In CSS set the percentage of the `.js-flextype` element's width you want the font size to be on the CSS variable `--flextype`. For instance, if you want the font size to be `18px` when the element is `500px` wide and to scale up and down from there at a 1:1 ratio, you would use the percentage `3.6%`.
+2. In CSS set the percentage of the `.js-flextype` element's width you want the font size to be on the [CSS custom property](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) `--flextype`. For instance, if you want the font size to be `18px` when the element is `500px` wide and to scale up and down from there at a 1:1 ratio, you would use the percentage `3.6%`.
 
     ```css
     .MyElement {
-      --flextype: 3.6%;
       width: 30%;
       float: left;
       /* ... */
+      --flextype: 3.6%;
     }
     ```
 
@@ -80,36 +97,9 @@ You can lock the font size in for particular width-ranges by using `+` and `-` m
 
 The +/- modifiers will prevent the font size from scaling until the next/previous rule becomes active, respectively.
 
-## Caveats
+## API
 
-<a name="css-vars-caveat"></a>
-
-### 1. CSS variables support
-
-**CSS variables are [not currently supported by either IE or Edge](http://caniuse.com/#feat=css-variables)** and are relatively recent additions to the other major browsers. To get around this flextype also accepts rules embedded in the `::before` pseudo element's content property.
-
-```css
-.MyElement::before {
-  content: '3.6%';
-  display: none;
-}
-```
-
-You can use [the flextype PostCSS plugin](https://github.com/autopaideia/postcss-flextype) to convert your `--flextype` declarations into this format for you.
-
-<a name="initialization-caveat"></a>
-
-### 2. Trigger flextype manually after javascript manipulations
-
-The font size of any `.js-flextype` elements will be scaled immediately when flextype.js is loaded and then again whenever the window is resized. However, should you need to insert a new `.js-flextype` element into the DOM after flextype has already initialized or should some script cause your elements ever resize outside of the window resize event, you need to manually trigger the resize. You can do this with:
-
-```javascript
-flextype.flex();
-```
-
-## Javascript API
-
-You mainly interact with flextype through CSS and the `js-flextype` class, but it also has a javascript API should you want to do more advanced/custom things with it.
+Flextype also has a javascript API should you ever need it.
 
 ```javascript
 import flextype from 'flextype';
@@ -147,4 +137,31 @@ flexer.flex();
 // Destroy your instance, removing the associated window resize event listener
 // and reseting the font size of the associated elements.
 flexer.destroy();
+```
+
+## Caveats
+
+<a name="css-custom-props-caveat"></a>
+
+### 1. IE/Edge support
+
+CSS custom properties are supported in the latest versions of all the major browsers **[except IE and Edge](http://caniuse.com/#feat=css-variables)**. As a workaround flextype also accepts rules embedded in the `::before` pseudo element's content property.
+
+```css
+.MyElement::before {
+  content: '3.6%';
+  display: none;
+}
+```
+
+You can (and probably should) use the [flextype PostCSS plugin](https://github.com/autopaideia/postcss-flextype) to convert your `--flextype` declarations into this format for you while Microsoft catches up.
+
+<a name="initialization-caveat"></a>
+
+### 2. Trigger flextype manually after javascript manipulations
+
+The font size of any `.js-flextype` elements will be scaled immediately when flextype.js is loaded and then again whenever the window is resized. However, should you need to insert a new `.js-flextype` element into the DOM after flextype has already initialized or should some script cause your elements ever resize outside of the window resize event, you need to manually trigger the resize. You can do this with:
+
+```javascript
+flextype.flex();
 ```

@@ -22,10 +22,12 @@
     "lint": "eslint \"./*.js\" \"src/**/*.js\" \"test/**/*.js\"",
     "test:local": "karma start --single-run --reporters mocha,coverage --browsers Chrome,Firefox,Safari",
     "test:dev": "karma start",
+    "codecov": "codecov",
     "test": "npm run lint && npm run test:local"
   },
   "devDependencies": {
     "babel-preset-env": "^1.2.0",
+    "codecov": "^1.0.1",
     "del": "^2.2.2",
     "eslint": "^3.17.0",
     "eslint-config-airbnb-base": "^11.1.1",
@@ -41,7 +43,6 @@
     "karma-babel-preprocessor": "^6.0.1",
     "karma-chrome-launcher": "^2.0.0",
     "karma-coverage": "^1.1.1",
-    "karma-coveralls": "^1.1.2",
     "karma-firefox-launcher": "^1.0.0",
     "karma-jasmine": "^1.1.0",
     "karma-mocha-reporter": "^2.2.1",
