@@ -60,7 +60,7 @@ module.exports = (config) => {
     files: ['src/**/*.js', 'test/**/*.spec.js'],
     reporters: ['dots', 'saucelabs', 'coverage', 'coveralls'],
     preprocessors: {
-      '**/src/**/*.js': ['babel'],
+      '**/src/**/*.js': ['coverage', 'babel'],
       'test/**/*.spec.js': ['babel'],
     },
     babelPreprocessor: {
