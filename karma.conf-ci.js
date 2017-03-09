@@ -58,7 +58,7 @@ module.exports = (config) => {
     basePath: '',
     frameworks: ['jasmine'],
     files: ['src/**/*.js', 'test/**/*.spec.js'],
-    reporters: ['dots', 'saucelabs'],
+    reporters: ['dots', 'saucelabs', 'coverage', 'coveralls'],
     preprocessors: {
       '**/src/**/*.js': ['babel'],
       'test/**/*.spec.js': ['babel'],
