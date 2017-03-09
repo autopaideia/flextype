@@ -81,6 +81,10 @@ module.exports = (config) => {
       accessKey: process.env.SAUCE_ACCESS_KEY,
       startConnect: false,
     },
+    coverageReporter: {
+      type: 'lcov',
+      dir: 'coverage/',
+    },
     customLaunchers,
     browsers: Object.keys(customLaunchers),
     singleRun: true,
