@@ -6,7 +6,9 @@
 
 Scale the font size of an element in proportion to its width... *in style*. 😎
 
-[Demo here](https://autopaideia.github.io/flextype/).
+![Basic example](http://imgur.com/zoG8oUO.gif)
+
+[Full demo here](https://autopaideia.github.io/flextype/).
 
 ## Features
 
@@ -165,3 +167,7 @@ The font size of any `.js-flextype` elements will be scaled immediately when fle
 ```javascript
 flextype.flex();
 ```
+
+### 3. Set a width
+
+Flextype bases the font size off the width of the `js-flextype` element. If the width of the `js-flextype` element is itself based off the font size of its content (as it is with inline elements, for example) it can't work.
