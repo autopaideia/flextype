@@ -1,6 +1,6 @@
 # flextype
 
-[![Build Status](https://img.shields.io/travis/autopaideia/flextype.svg)](https://travis-ci.org/autopaideia/flextype) [![Codecov](https://img.shields.io/codecov/c/github/autopaideia/flextype.svg)](https://codecov.io/github/autopaideia/flextype?branch=master) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://img.shields.io/travis/autopaideia/flextype.svg)](https://travis-ci.org/autopaideia/flextype) [![Codecov](https://img.shields.io/codecov/c/github/autopaideia/flextype.svg)](https://codecov.io/github/autopaideia/flextype?branch=master) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 [![Build Status](https://saucelabs.com/browser-matrix/autopaideia.svg)](https://saucelabs.com/beta/builds/88c42e744a9241999efb1a98ebfd440d)
 
