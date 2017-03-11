@@ -1,8 +1,6 @@
 # flextype
 
-[![Build Status](https://img.shields.io/travis/autopaideia/flextype.svg)](https://travis-ci.org/autopaideia/flextype) [![Codecov](https://img.shields.io/codecov/c/github/autopaideia/flextype.svg)](https://codecov.io/github/autopaideia/flextype?branch=master) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-
-[![Build Status](https://saucelabs.com/browser-matrix/autopaideia.svg)](https://saucelabs.com/beta/builds/88c42e744a9241999efb1a98ebfd440d)
+[![Build Status](https://img.shields.io/travis/autopaideia/flextype.svg)](https://travis-ci.org/autopaideia/flextype) [![Build Status](https://saucelabs.com/buildstatus/autopaideia)](https://saucelabs.com/beta/builds/037d84ac42b4480ebdb2791f8b7927f3) [![Codecov](https://img.shields.io/codecov/c/github/autopaideia/flextype.svg)](https://codecov.io/github/autopaideia/flextype?branch=master) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 Scale the font size of an element in proportion to its width... *in style*. 😎
 
@@ -13,7 +11,7 @@ Scale the font size of an element in proportion to its width... *in style*. 😎
 ## Features
 
 * Simple syntax for scaling at different amounts for different widths
-* Define your scaling logic in CSS, allowing you to:
+* Define your scaling ratios in CSS, allowing you to:
   * easily override within media queries
   * leverage whatever CSS-preprocessor variables you might be using for your site's layout and typography
 * No dependencies
@@ -76,7 +74,7 @@ This syntax gives you access to two additional features: "Tweening" and "Locking
 
 ### Tweening
 
-The font size can be made to scale at different ratios for different width-ranges, flextype will adjust the font size depending on which rules the element's width currently fall between.
+The font size can be made to scale at different ratios for different width-ranges, flextype will adjust the font size depending on which rules the element's width currently falls between.
 
 ```css
 .MyElement {
@@ -101,45 +99,50 @@ The +/- modifiers will prevent the font size from scaling until the next/previou
 
 ## API
 
-Flextype also has a javascript API should you ever need it.
+Flextype also has a simple javascript interface, which for the most part you shouldn't have to interact with unless you want to do particularly custom stuff.
 
-```javascript
-import flextype from 'flextype';
+* Manually force elements to scale outside of the window resize event
 
-const el = document.getElementsByClassName('MyElement');
+    ```javascript
+    myElement.style.width = '300px';
+    flextype.flex();
+    ```
+* Use a custom selector instead of `.js-flextype`
 
-// Manually force all .js-flextype elements on the page to scale.
-flextype.flex();
+    ```javascript
+    const flexer = flextype(document.getElementsByClassName('💪'));
+    // Use flexer.flex() to manually scale should you need to
+    // Use flexer.destroy() to remove the resize listener and reset the font
+    ```
 
-// Get a specific element's suggested font size based on its CSS rules and
-// current width.
-flextype.getElSize(el);
+* Execute code on an element whenever flextype finishes scaling it
 
-// Set element(s)'s font size based on its CSS rules and current width.
-// If there are no rules the font size will be reset.
-flextype.setElSize(el);
+    ```javascript
+    myElement.addEventListener('flextype:changed', function () {
+      // Cycle the hue every 12px change in font size
+      const hue = ((parseFloat(this.style.fontSize) % 12) * 360) / 12;
+      this.style.color = `hsl(${hue}, 100%, 50%)`;
+    });
+    ```
 
-// Any time flextype changes the font size of an element it will emit a
-// 'flextype:changed' event on that element.
-el.addEventListener('flextype:changed', () => console.log('changed'));
-el.style.fontSize = '999px';
-flextype.flex(); // Logs 'changed'.
+* Get the suggested font size of an element based on its CSS rules and width
 
-// Determine font size based on a rules object and a width.
-flextype.size({ '500-': 10, 1500: 20 }, 1000); // = 15
+    ```javascript
+    flextype.getElSize(myElement);
+    ```
 
-// Create a separate instance of flextype with its own resize listener, bound to
-// whatever DOM elements you like.
-const flexer = flextype(document.getElementsByClassName('MyOtherElement'));
+* Set the font size based on CSS rules and width
 
-// Manually force the elements associated with your instance to scale (like
-// flextype.flex() does for the default .js-flextype elements).
-flexer.flex();
+    ```javascript
+    flextype.setElSize(myElement);
+    ```
 
-// Destroy your instance, removing the associated window resize event listener
-// and reseting the font size of the associated elements.
-flexer.destroy();
-```
+* Parse a set of rules against a width programmatically
+
+    ```javascript
+    flextype.size({ '500-': 10, 1500: 20 }, 1000); // = 15
+    ```
+
 
 ## Caveats
 
@@ -162,7 +165,7 @@ You can (and probably should) use the [flextype PostCSS plugin](https://github.c
 
 ### 2. Trigger flextype manually after javascript manipulations
 
-The font size of any `.js-flextype` elements will be scaled immediately when flextype.js is loaded and then again whenever the window is resized. However, should you need to insert a new `.js-flextype` element into the DOM after flextype has already initialized or should some script cause your elements ever resize outside of the window resize event, you need to manually trigger the resize. You can do this with:
+The font size of any `.js-flextype` elements will be scaled immediately when flextype.js is loaded and then again whenever the window is resized. However, if you insert a new `.js-flextype` element into the DOM after flextype has already initialized, or if you resize a flextype container outside of the normal window resize event, you'll need to manually trigger the resize with:
 
 ```javascript
 flextype.flex();
