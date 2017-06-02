@@ -66,14 +66,14 @@ flextype.setElSize = (elements, size) => {
 
     el.style.fontSize = newSize ? `${newSize}px` : newSize;
 
-    if (el.style.fontSize === oldSize) return;
-
-    if (typeof CustomEvent === 'function') {
-      el.dispatchEvent(new CustomEvent('flextype:changed'));
-    } else {
-      const event = document.createEvent('CustomEvent');
-      event.initCustomEvent('flextype:changed', true, false, undefined);
-      el.dispatchEvent(event);
+    if (el.style.fontSize !== oldSize) {
+      if (typeof CustomEvent === 'function') {
+        el.dispatchEvent(new CustomEvent('flextype:changed'));
+      } else {
+        const event = document.createEvent('CustomEvent');
+        event.initCustomEvent('flextype:changed', true, false, undefined);
+        el.dispatchEvent(event);
+      }
     }
   }
 };

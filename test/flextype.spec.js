@@ -209,6 +209,18 @@ describe('flextype', () => {
         expect(el.style.fontSize).toBe('111px');
       });
 
+      it('works with multiple elements when first is not updated', () => {
+        const el2 = doc.createElement('div');
+        doc.body.appendChild(el2);
+        el.style.fontSize = '111px';
+        el2.style.fontSize = '5px';
+
+        flextype.setElSize([el, el2]);
+
+        expect(flextype.getElSize).toHaveBeenCalledWith(el2);
+        expect(el2.style.fontSize).toBe('111px');
+      });
+
       it('dispatches a `flextype:changed` event if the font-size was changed', () => {
         el.style.fontSize = '5px';
 
