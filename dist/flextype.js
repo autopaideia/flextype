@@ -1,5 +1,5 @@
 /*!
- * flextype.js v1.0.0
+ * flextype.js v1.0.2
  * (c) 2017 Nick Bosman
  * Released under the MIT License.
  */
@@ -16,17 +16,15 @@
 
 var LOCK_UP = 1;
 var LOCK_DOWN = 2;
-
-var cache = {};
+var LOCK_BOTH = LOCK_UP + LOCK_DOWN;
+var LOCK_REGEX = /\+|-|\s/g;
+var PROP_REGEX = /^'|^"|\\|%|'$|"$/g;
+var CACHE = {};
 
 var getEls = function getEls(els) {
-  if (els instanceof HTMLElement) {
-    return [els];
-  } else if (els === null || els.length === undefined) {
-    return [];
-  } else if (els.length === 0 || els[0] instanceof HTMLElement) {
-    return els;
-  }
+  if (els instanceof HTMLElement) return [els];
+  if (els === null || els.length === undefined) return [];
+  if (els.length === 0 || els[0] instanceof HTMLElement) return els;
 
   throw new TypeError('Flextype: Invalid selector');
 };
@@ -56,25 +54,22 @@ FlexType.prototype.destroy = function destroy() {
 };
 
 flextype.size = function (rules, w, cacheKey) {
-  var parsed = void 0;
+  var parsed = CACHE[cacheKey];
 
-  if (cacheKey === undefined || cache[cacheKey] === undefined) {
-    (function () {
-      var percent = parseFloat(rules);
-      var r = !isNaN(percent) && isFinite(percent) ? { 100: percent } : rules;
+  if (parsed === undefined) {
+    var num = parseFloat(rules);
+    var ruleSet = !isNaN(num) && isFinite(num) ? { 100: num } : rules;
 
-      parsed = Object.keys(r).map(function (k) {
-        return {
-          w: parseFloat(k.replace(/\+|-|\s/g, '')),
-          s: parseFloat(r[k]),
-          l: (k.indexOf('-') + 1 && LOCK_DOWN) + (k.indexOf('+') + 1 && LOCK_UP)
-        };
-      });
+    // w = width, s = (font-)size, l = lock
+    parsed = Object.keys(ruleSet).map(function (k) {
+      return {
+        w: parseFloat(k.replace(LOCK_REGEX, '')),
+        s: parseFloat(ruleSet[k]),
+        l: (k.indexOf('-') + 1 && LOCK_DOWN) + (k.indexOf('+') + 1 && LOCK_UP)
+      };
+    });
 
-      if (cacheKey !== undefined) cache[cacheKey] = parsed;
-    })();
-  } else {
-    parsed = cache[cacheKey];
+    if (cacheKey !== undefined) CACHE[cacheKey] = parsed;
   }
 
   var _parsed$reduce = parsed.reduce(function (acc, rule) {
@@ -86,14 +81,9 @@ flextype.size = function (rules, w, cacheKey) {
       start = _parsed$reduce.start,
       end = _parsed$reduce.end;
 
-  if (w === start.w || [LOCK_UP, LOCK_UP + LOCK_DOWN].indexOf(start.l) >= 0) {
-    return start.s;
-  } else if ([LOCK_DOWN, LOCK_UP + LOCK_DOWN].indexOf(end.l) >= 0) {
-    return end.s;
-  } else if (end.w === Infinity) {
-    return w * start.s / start.w;
-  }
-
+  if (w === start.w || [LOCK_UP, LOCK_BOTH].indexOf(start.l) !== -1) return start.s;
+  if ([LOCK_DOWN, LOCK_BOTH].indexOf(end.l) !== -1) return end.s;
+  if (end.w === Infinity) return w * start.s / start.w;
   return start.s + (end.s - start.s) * (w - start.w) / (end.w - start.w);
 };
 
@@ -101,41 +91,34 @@ flextype.setElSize = function (elements, size) {
   var els = getEls(elements);
   for (var i = 0; i < els.length; i += 1) {
     var el = els[i];
-    var fontSize = size;
-    if (size === undefined) {
-      fontSize = flextype.getElSize(el);
-    }
-
     var oldSize = el.style.fontSize;
-    el.style.fontSize = fontSize ? fontSize + 'px' : fontSize;
+    var newSize = size === undefined ? flextype.getElSize(el) : size;
 
-    if (el.style.fontSize !== oldSize) {
-      if (typeof CustomEvent === 'function') {
-        el.dispatchEvent(new CustomEvent('flextype:changed'));
-      } else {
-        var event = document.createEvent('CustomEvent');
-        event.initCustomEvent('flextype:changed', true, false, undefined);
-        el.dispatchEvent(event);
-      }
+    el.style.fontSize = newSize ? newSize + 'px' : newSize;
+
+    if (el.style.fontSize === oldSize) return;
+
+    if (typeof CustomEvent === 'function') {
+      el.dispatchEvent(new CustomEvent('flextype:changed'));
+    } else {
+      var event = document.createEvent('CustomEvent');
+      event.initCustomEvent('flextype:changed', true, false, undefined);
+      el.dispatchEvent(event);
     }
   }
 };
 
 flextype.getElSize = function (elements) {
-  var els = getEls(elements);
-  var el = els[0];
+  var el = getEls(elements)[0];
 
   if (!el) return '';
 
   var style = getComputedStyle(el);
   var val = style.getPropertyValue('--flextype') || getComputedStyle(el, '::before').content;
 
-  if (!val || ['\'\'', '""', 'none'].indexOf(val) >= 0) {
-    return '';
-  }
+  if (!val || ['\'\'', '""', 'none'].indexOf(val) !== -1) return '';
 
-  var rules = cache[val] === undefined ? JSON.parse(val.trim().replace(/^'|^"|\\|%|'$|"$/g, '')) : null;
-
+  var rules = CACHE[val] || JSON.parse(val.trim().replace(PROP_REGEX, ''));
   var width = style.width,
       bLeft = style.borderLeftWidth,
       bRight = style.borderRightWidth;
