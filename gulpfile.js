@@ -12,7 +12,7 @@ const CONF = {
   src: 'src/flextype.js',
   dest: 'dist',
   clean: ['dist'],
-  uglify: { preserveComments: 'license', mangle: { except: ['FlexType'] } },
+  uglify: { output: { comments: /^!/ }, mangle: { reserved: ['FlexType'] } },
   banner: `/*!
  * flextype.js v${version}
  * (c) ${new Date().getFullYear()} ${author.name}
