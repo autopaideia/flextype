@@ -7,27 +7,28 @@ const rename = require('gulp-rename');
 const { prepend } = require('gulp-insert');
 const { version, author, license } = require('./package.json');
 
-const CONF = {
-  name: 'flextype',
-  src: 'src/flextype.js',
-  dest: 'dist',
-  clean: ['dist'],
-  uglify: { output: { comments: /^!/ }, mangle: { reserved: ['FlexType'] } },
-  banner: `/*!
+const NAME = 'flextype';
+const SRC = 'src/flextype.js';
+const DEST = 'dist';
+const CLEAN = ['dist'];
+const UGLIFY = {
+  output: { comments: /^!/ },
+  mangle: { reserved: ['FlexType'] },
+};
+const BANNER = `/*!
  * flextype.js v${version}
  * (c) ${new Date().getFullYear()} ${author.name}
  * Released under the ${license} License.
  */
-`,
-};
+`;
 
-gulp.task('clean', () => del(CONF.clean));
+gulp.task('clean', () => del(CLEAN));
 
-gulp.task('default', ['clean'], () => gulp.src(CONF.src)
+gulp.task('default', ['clean'], () => gulp.src(SRC)
   .pipe(babel())
-  .pipe(umd({ namespace: () => CONF.name, exports: () => CONF.name }))
-  .pipe(prepend(CONF.banner))
-  .pipe(gulp.dest(CONF.dest))
-  .pipe(uglify(CONF.uglify))
+  .pipe(umd({ namespace: () => NAME, exports: () => NAME }))
+  .pipe(prepend(BANNER))
+  .pipe(gulp.dest(DEST))
+  .pipe(uglify(UGLIFY))
   .pipe(rename({ extname: '.min.js' }))
-  .pipe(gulp.dest(CONF.dest)));
+  .pipe(gulp.dest(DEST)));
