@@ -1,6 +1,6 @@
 {
   "name": "flextype",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Scale text against its container width using CSS.",
   "author": {
     "name": "Nick Bosman",
