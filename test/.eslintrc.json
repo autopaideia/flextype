@@ -15,6 +15,6 @@
     "afterEach": true,
     "spyOn": true,
     "flextype": true,
-    "cache": true
+    "CACHE": true
   }
 }

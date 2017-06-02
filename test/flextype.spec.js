@@ -468,12 +468,12 @@ describe('flextype', () => {
 
         const k = getComputedStyle(el, '::before').content;
 
-        cache[k] = 'VALUE';
+        CACHE[k] = 'VALUE';
 
         flextype.getElSize(el);
-        expect(flextype.size).toHaveBeenCalledWith(null, 55, k);
+        expect(flextype.size).toHaveBeenCalledWith('VALUE', 55, k);
 
-        delete cache[k];
+        delete CACHE[k];
       });
 
       it('accepts a list of nodes', () => {
@@ -506,8 +506,8 @@ describe('flextype', () => {
 
     describe('flextype.size', () => {
       afterEach(() => {
-        Object.keys(cache).forEach((key) => {
-          delete cache[key];
+        Object.keys(CACHE).forEach((key) => {
+          delete CACHE[key];
         });
       });
 
@@ -581,7 +581,7 @@ describe('flextype', () => {
 
       it('stores items in the cache when cacheKey is set', () => {
         flextype.size(6, 200, 'testKey');
-        expect(cache.testKey).toEqual([{ w: 100, s: 6, l: 0 }]);
+        expect(CACHE.testKey).toEqual([{ w: 100, s: 6, l: 0 }]);
       });
 
       it('retrieves items from the cache when cacheKey is set', () => {
