@@ -1,5 +1,5 @@
 /*!
- * flextype.js v1.0.3
+ * flextype.js v1.0.6
  * (c) 2017 Nick Bosman
  * Released under the MIT License.
  */
@@ -17,7 +17,7 @@
 var LOCK_UP = 1;
 var LOCK_DOWN = 2;
 var LOCK_BOTH = LOCK_UP + LOCK_DOWN;
-var LOCK_REGEX = /\+|-|\s/g;
+var KEY_REGEX = /\+|-|\s/g;
 var PROP_REGEX = /^'|^"|\\|%|'$|"$/g;
 var CACHE = {};
 
@@ -63,7 +63,7 @@ flextype.size = function (rules, w, cacheKey) {
     // w = width, s = (font-)size, l = lock
     parsed = Object.keys(ruleSet).map(function (k) {
       return {
-        w: parseFloat(k.replace(LOCK_REGEX, '')),
+        w: parseFloat(k.replace(KEY_REGEX, '')),
         s: parseFloat(ruleSet[k]),
         l: (k.indexOf('-') + 1 && LOCK_DOWN) + (k.indexOf('+') + 1 && LOCK_UP)
       };
