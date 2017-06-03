@@ -1,7 +1,7 @@
 const LOCK_UP = 1;
 const LOCK_DOWN = 2;
 const LOCK_BOTH = LOCK_UP + LOCK_DOWN;
-const LOCK_REGEX = /\+|-|\s/g;
+const KEY_REGEX = /\+|-|\s/g;
 const PROP_REGEX = /^'|^"|\\|%|'$|"$/g;
 const CACHE = {};
 
@@ -38,7 +38,7 @@ flextype.size = (rules, w, cacheKey) => {
 
     // w = width, s = (font-)size, l = lock
     parsed = Object.keys(ruleSet).map(k => ({
-      w: parseFloat(k.replace(LOCK_REGEX, '')),
+      w: parseFloat(k.replace(KEY_REGEX, '')),
       s: parseFloat(ruleSet[k]),
       l: (k.indexOf('-') + 1 && LOCK_DOWN) + (k.indexOf('+') + 1 && LOCK_UP),
     }));
