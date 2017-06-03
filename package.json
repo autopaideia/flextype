@@ -18,12 +18,14 @@
     "responsive"
   ],
   "scripts": {
-    "preversion": "gulp",
     "lint": "eslint \"./*.js\" \"src/**/*.js\" \"test/**/*.js\"",
     "test:local": "karma start --single-run --reporters mocha,coverage --browsers Chrome,Firefox,Safari",
     "test:dev": "karma start",
     "codecov": "codecov",
-    "test": "npm run lint && npm run test:local"
+    "test": "npm run lint && npm run test:local",
+    "preversion": "test",
+    "version": "gulp && git add -A dist",
+    "postversion": "git push && git push --tags"
   },
   "devDependencies": {
     "babel-plugin-array-includes": "^2.0.3",
