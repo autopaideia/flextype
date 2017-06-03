@@ -10,7 +10,8 @@ const { version, author, license } = require('./package.json');
 const NAME = 'flextype';
 const SRC = 'src/flextype.js';
 const DEST = 'dist';
-const CLEAN = ['dist'];
+const UMD = { namespace: () => NAME, exports: () => NAME };
+const RENAME_MIN = { extname: '.min.js' };
 const UGLIFY = {
   output: { comments: /^!/ },
   mangle: { reserved: ['FlexType'] },
@@ -22,13 +23,13 @@ const BANNER = `/*!
  */
 `;
 
-gulp.task('clean', () => del(CLEAN));
+gulp.task('clean', () => del([DEST]));
 
 gulp.task('default', ['clean'], () => gulp.src(SRC)
   .pipe(babel())
-  .pipe(umd({ namespace: () => NAME, exports: () => NAME }))
+  .pipe(umd(UMD))
   .pipe(prepend(BANNER))
   .pipe(gulp.dest(DEST))
   .pipe(uglify(UGLIFY))
-  .pipe(rename({ extname: '.min.js' }))
+  .pipe(rename(RENAME_MIN))
   .pipe(gulp.dest(DEST)));
