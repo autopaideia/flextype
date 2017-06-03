@@ -182,8 +182,10 @@ p:last-child {
   padding-top: 2.5em;
   padding-bottom: 2.5em;
 }
-.Content-inner {
-  overflow: hidden;
+.Content-inner::after {
+  content: "";
+  display: table;
+  clear: both;
 }
 .Content-item {
   margin: 0 0 1.5em;
