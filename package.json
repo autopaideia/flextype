@@ -23,7 +23,7 @@
     "test:dev": "karma start",
     "codecov": "codecov",
     "test": "npm run lint && npm run test:local",
-    "preversion": "test",
+    "preversion": "npm test",
     "version": "gulp && git add -A dist",
     "postversion": "git push && git push --tags"
   },
