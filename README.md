@@ -48,7 +48,7 @@ npm install flextype --save
     <div class="MyElement js-flextype">Hello</div>
     ```
 
-2. In CSS set the percentage of the `.js-flextype` element's width you want the font size to be on the [CSS custom property](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) `--flextype`. For instance, if you want the font size to be `18px` when the element is `500px` wide and to scale up and down from there at a 1:1 ratio, you would use the percentage `3.6%`.
+2. In CSS set the percentage of the `.js-flextype` element's width you want the font size to be on the [CSS custom property](https://developer.mozilla.org/en-US/docs/Web/CSS/--*) `--flextype`. For instance, if you want the font size to be `18px` when the element is `500px` wide and to scale linearly at that ratio, you would use the percentage `3.6%`.
 
     ```css
     .MyElement {
@@ -61,6 +61,8 @@ npm install flextype --save
 
 ## Advanced usage
 
+### Alternative syntax
+
 The ratio passed to flextype can also be expressed as a key-value pair written in JSON, where the key is an element width (in pixels) and the value is the desired corresponding font size (in pixels).
 
 ```css
@@ -70,9 +72,7 @@ The ratio passed to flextype can also be expressed as a key-value pair written i
 }
 ```
 
-This syntax gives you access to two additional features: "Tweening" and "Locking".
-
-### Tweening
+### Multiple ratios
 
 The font size can be made to scale at different ratios for different width-ranges, flextype will adjust the font size depending on which rules the element's width currently falls between.
 
@@ -118,7 +118,7 @@ Flextype also has a simple javascript interface, which for the most part you sho
 * Execute code on an element whenever flextype finishes scaling it
 
     ```javascript
-    myElement.addEventListener('flextype:changed', function () {
+    myElement.addEventListener('flextype:changed', function() {
       // Cycle the hue every 12px change in font size
       const hue = ((parseFloat(this.style.fontSize) % 12) * 360) / 12;
       this.style.color = `hsl(${hue}, 100%, 50%)`;
@@ -159,7 +159,7 @@ CSS custom properties are supported in the latest versions of all the major brow
 }
 ```
 
-You can (and probably should) use the [flextype PostCSS plugin](https://github.com/autopaideia/postcss-flextype) to convert your `--flextype` declarations into this format for you while Microsoft catches up.
+You can use the [flextype PostCSS plugin](https://github.com/autopaideia/postcss-flextype) to convert your `--flextype` declarations into this format for you while Microsoft catches up.
 
 <a name="initialization-caveat"></a>
 
